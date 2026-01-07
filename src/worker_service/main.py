@@ -8,5 +8,9 @@ def run_job(job_name: str) -> None:
     logger.info("job_completed", job_name=job_name)
 
 
-if __name__ == "__main__":
+def main() -> None:
     run_job("daily_cleanup")
+
+
+if __name__ == "__main__":
+    main()
