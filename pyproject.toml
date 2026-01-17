@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "worker-service"
-version = "0.2.0"
+version = "1.0.0"
 description = "Background jobs and scheduled tasks microservice"
 requires-python = ">=3.9"
-dependencies = ["core-logger"]
+dependencies = ["core-logger", "fastapi>=0.110", "uvicorn[standard]>=0.27"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
