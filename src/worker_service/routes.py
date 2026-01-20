@@ -1,3 +1,9 @@
+"""
+API route definitions for the service.
+
+Defines FastAPI router endpoints that handle incoming HTTP requests and
+delegate to core business logic functions.
+"""
 from fastapi import APIRouter
 
 from .main import run_job

@@ -1,3 +1,9 @@
+"""
+FastAPI application factory with health check endpoints.
+
+Creates the FastAPI app instance, includes API routes, and provides /healthz
+and /readyz endpoints for Kubernetes-style health and readiness probes.
+"""
 from fastapi import FastAPI
 
 from .routes import router
