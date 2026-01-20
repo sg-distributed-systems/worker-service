@@ -15,9 +15,11 @@ from dataclasses import dataclass
 class ServiceConfig:
     env: str = "dev"
     shutdown_timeout: int = 10
+    port: int = 8009
 
 
 def load_config(service_name: str) -> ServiceConfig:
     env = os.getenv("APP_ENV", "dev")
     shutdown_timeout = int(os.getenv("SHUTDOWN_TIMEOUT_SECONDS", "10"))
-    return ServiceConfig(env=env, shutdown_timeout=shutdown_timeout)
+    port = int(os.getenv("PORT", "8009"))
+    return ServiceConfig(env=env, shutdown_timeout=shutdown_timeout, port=port)
