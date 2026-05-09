@@ -11,7 +11,7 @@ from core_logger import get_logger
 
 from .errors import NotFoundError, ValidationError
 
-logger = get_logger("worker-service")
+logger = get_logger("worker-service", tier="infrastructure")
 
 VALID_JOB_TYPES = {"email_send", "report_generate", "data_export", "image_resize", "cache_invalidate"}
 JOB_QUEUE: dict = {}
