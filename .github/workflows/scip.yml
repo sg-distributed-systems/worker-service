@@ -1,0 +1,54 @@
+name: SCIP Index
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  scip-index:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install scip-python
+        run: npm install -g @sourcegraph/scip-python
+
+      - name: Install src-cli
+        run: |
+          curl -L https://github.com/sourcegraph/src-cli/releases/latest/download/src_linux_amd64 -o /usr/local/bin/src
+          chmod +x /usr/local/bin/src
+
+      - name: Install package and cross-repo dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install core-logger from its repo so cross-repo references resolve
+          pip install git+https://github.com/sg-distributed-systems/core-logger.git
+          # Install this service
+          pip install .
+
+      - name: Generate SCIP index
+        run: |
+          VERSION=$(grep '^version' pyproject.toml | head -1 | sed -E 's/.*"(.*)".*/\1/')
+          scip-python index \
+            --project-name worker-service \
+            --project-version "$VERSION" \
+            --output index.scip \
+            .
+
+      - name: Upload SCIP index to Sourcegraph
+        env:
+          SRC_ENDPOINT: ${{ secrets.SRC_ENDPOINT }}
+          SRC_ACCESS_TOKEN: ${{ secrets.SRC_ACCESS_TOKEN }}
+        run: src code-intel upload -file=index.scip -github-token=${{ secrets.GITHUB_TOKEN }}
