@@ -4,6 +4,12 @@ FastAPI application factory with health check endpoints.
 Creates the FastAPI app instance, includes API routes, and provides /healthz
 and /readyz endpoints for Kubernetes-style health and readiness probes.
 """
+
+# NOTE: Precise code navigation does NOT work for Python standard
+# library symbols (ex. uuid) because there is no real repository to index and upload.
+# However the exact description of the symbol from the library can be seen
+# by hovering over the object.
+
 from uuid import uuid4
 
 from core_logger import set_correlation_id

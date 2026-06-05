@@ -8,7 +8,7 @@ version = "2.0.0"
 description = "Background jobs and scheduled tasks microservice"
 requires-python = ">=3.9"
 # NOTE: If you update a dependency version below, please also update the auto SCIP index policy in sourcegraph.com
-dependencies = ["core-logger", "fastapi==0.128.0", "uvicorn[standard]>=0.27"]
+dependencies = ["core-logger", "fastapi==0.128.0", "starlette==0.49.3", "pydantic==2.13.4", "uvicorn[standard]==0.39.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
