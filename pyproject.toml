@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "worker-service"
-version = "2.0.0"
+version = "2.1.0"
 description = "Background jobs and scheduled tasks microservice"
 requires-python = ">=3.9"
 # NOTE: If you update a dependency version below, please also update the auto SCIP index policy in sourcegraph.com
