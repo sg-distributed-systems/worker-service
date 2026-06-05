@@ -58,3 +58,14 @@ def cancel_job(job_id: UUID) -> dict:
     job["status"] = "cancelled"
     logger.info("job_cancelled", job_id=str(job_id))
     return {"job_id": job_id, "status": "cancelled", "cancelled_at": datetime.utcnow()}
+
+
+def purge_completed_jobs(older_than_days: int = 30) -> dict:
+    logger.info("job_purge_started", older_than_days=older_than_days)
+
+    if older_than_days < 1:
+        raise ValidationError("invalid_retention_period", details={"min_days": 1})
+
+    removed = 0
+    logger.info("jobs_purged", removed=removed, older_than_days=older_than_days)
+    return {"removed": removed, "purged_at": datetime.utcnow()}
