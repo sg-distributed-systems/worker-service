@@ -26,7 +26,7 @@ def register_shutdown_callback(cb: Callable[[], None]) -> None:
 
 
 def request_shutdown(reason: str) -> None:
-    logger = get_logger("lifecycle")
+    logger = get_logger("lifecycle", tier="infrastructure")
     logger.warning("shutdown_requested", reason=reason)
     _shutdown_event.set()
     for cb in list(_shutdown_callbacks):
@@ -37,7 +37,7 @@ def request_shutdown(reason: str) -> None:
 
 
 def install_signal_handlers(service_logger_name: str) -> None:
-    logger = get_logger(service_logger_name)
+    logger = get_logger(service_logger_name, tier="infrastructure")
 
     def _handler(signum: int, frame: Optional[object]) -> None:
         try:
