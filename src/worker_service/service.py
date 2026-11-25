@@ -7,11 +7,11 @@ for asynchronous tasks including email sending, report generation, and data expo
 from datetime import datetime
 from uuid import UUID, uuid4
 
-from core_logger import get_logger
+from core_logger import Tier, get_logger
 
 from .errors import NotFoundError, ValidationError
 
-logger = get_logger("worker-service")
+logger = get_logger("worker-service", tier=Tier.INFRASTRUCTURE)
 
 VALID_JOB_TYPES = {"email_send", "report_generate", "data_export", "image_resize", "cache_invalidate"}
 JOB_QUEUE: dict = {}
